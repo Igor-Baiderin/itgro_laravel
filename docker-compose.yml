@@ -1,0 +1,98 @@
+services:
+    app:
+        build:
+            context: .
+            dockerfile: ./docker/php/Dockerfile
+        container_name: laravel-app
+        working_dir: /var/www/html
+        volumes:
+            - .:/var/www/html
+        environment:
+            - PHP_FPM_PORT=9000
+        networks:
+            - laravel
+        depends_on:
+            - db
+            - redis
+        restart: always  # Автоматический перезапуск контейнера
+
+    nginx:
+        image: nginx:latest
+        container_name: nginx-server
+        volumes:
+            - .:/var/www/html
+            - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+        ports:
+            - "25000:80"
+        depends_on:
+            - app
+        networks:
+            - laravel
+
+    db:
+        image: postgres:13
+        container_name: postgres-db
+        environment:
+            POSTGRES_DB: laravel_test
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: secret
+        volumes:
+            - postgres-data:/var/lib/postgresql/data
+        networks:
+            - laravel
+        restart: always  # Автоматический перезапуск контейнера
+
+
+    redis:
+        image: redis:alpine
+        container_name: redis-server
+        networks:
+            - laravel
+
+    pgadmin:
+        image: dpage/pgadmin4
+        container_name: pgadmin
+        environment:
+            PGADMIN_DEFAULT_EMAIL: admin@admin.com
+            PGADMIN_DEFAULT_PASSWORD: secret
+        ports:
+            - "25100:80"
+        depends_on:
+            - db
+        networks:
+            - laravel
+
+#    cron:
+#        build:
+#            context: .
+#            dockerfile: ./docker/php/Dockerfile
+#        container_name: cron-job
+#        volumes:
+#            - .:/var/www/html
+#        depends_on:
+#            - app
+#        networks:
+#            - laravel
+#        command: ["cron", "-f"]  # Запускаем только cron без экспонирования порта
+#
+#
+#    supervisor:
+#        build:
+#            context: .
+#            dockerfile: ./docker/php/Dockerfile
+#        container_name: supervisor
+#        volumes:
+#            - .:/var/www/html
+#        depends_on:
+#            - app
+#        networks:
+#            - laravel
+#        command: ["supervisord", "-c", "/etc/supervisor/supervisord.conf"]  # Запускаем supervisor без порта
+
+
+networks:
+    laravel:
+        driver: bridge
+
+volumes:
+    postgres-data:
