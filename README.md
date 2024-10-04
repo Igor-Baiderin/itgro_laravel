@@ -1,66 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Задание
+Необходимо реализовать сервис книжной витрины. Все данные должны храниться в базе данных. Сервис должен предоставлять API методы для получения данных в формате JSON.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Требования
+- использование PHP версии 8+
+- использование фреймворка Laravel версии 10+
+- контейнеризация: возможность запустить сервис командой docker compose up
 
-## About Laravel
+Детали
+Методы создания и редактирования автора
+Валидация полей:
+- имя: строка длиной от 2 до 40 символов, обязательное
+- информация: строка длиной до 1000 символов, не обязательное
+- дата рождения: дата в формате дд-мм-гггг, не обязательное
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Метод получения списка авторов с пагинацией
+- на одной странице должно быть не более 15 авторов
+- объект автора должен содержать информацию о количестве добавленных книг
+- сортировка авторов по количеству добавленных книг
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+ Метод получения автора
+- объект автора должен содержать список добавленных книг
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Методы создания и редактирования книги
 
-## Learning Laravel
+Валидация полей:
+- id автора: число с проверкой на существование автора в БД, обязательное
+- название: строка длиной от 2 до 100 символов, обязательное
+- аннотация: строка длиной до 1000 символов, не обязательное
+- дата публикации: дата в формате дд-мм-гггг, обязательное
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Метод получения списка книг с пагинацией
+- на одной странице должно быть не более 10 книг
+- объект книги должен содержать информацию об авторе
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Метод получения книги
+- объект книги должен содержать информацию об авторе
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+По желанию задание можно усложнить выполнив дополнительные условия:
 
-## Laravel Sponsors
+условие 1:
+- реализовать функционал для оглавления книг с содержанием текста каждой главы
+- добавить подсчёт количества символов в тексте всех глав книги, обновлять его после добавления новой или редактирования существующей главы
+- 
+условие 2:
+- в методе получения списка книг добавить вывод информации о количестве символов
+- в методе получения книги добавить отображение оглавления и текста глав
+- 
+условие 3:
+- написать тесты для API методов
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Выполнение
+Упакован в контейнер docker-compose, перед запуском создать .env, подключение к БД в .env.example стоит для конфигурации, далее из папки проекта docker compose up.
 
-### Premium Partners
+Для просмотра http://localhost:25000/ 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+http://localhost:25100/ - pgAdmin для просмотра БД. (login - admin@admin.com password - secret)
 
-## Contributing
+BD - laravel_test
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
 
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
