@@ -40,7 +40,9 @@ services:
             - postgres-data:/var/lib/postgresql/data
         networks:
             - laravel
-        restart: always  # Автоматический перезапуск контейнера
+        ports:
+            - "5432:5432"   # Публикуем порт для локального подключения (если нужно)
+        restart: always     # Автоматический перезапуск контейнера
 
 
     redis:
@@ -61,6 +63,7 @@ services:
             - db
         networks:
             - laravel
+        restart: always
 
 #    cron:
 #        build:

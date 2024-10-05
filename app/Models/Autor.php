@@ -25,7 +25,8 @@ class Autor extends Model
     // Мутатор для записи поля birthday_at
     public function setBirthdayAtAttribute($value)
     {
-        $this->attributes['birthday_at'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+//        $this->attributes['birthday_at'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['birthday_at'] = Carbon::parse($value)->format('Y-m-d');
     }
 
     // Определение связи с книгами

@@ -25,6 +25,7 @@ class AutorController extends Controller
      */
     public function store(StoreAutorRequest $request)
     {
+//        return response()->json(['hhh' => '11111'], 201);
         $autor = Autor::create([
             'name' => $request->name,
             'information' => $request->information,

@@ -159,3 +159,49 @@ BD - laravel_test
 }
 ```
 Остальное по коду видно (middleware для api не было по условиям задачи)
+
+запуск тестов: docker exec -it laravel-app php artisan test
+```
+   PASS  Tests\Feature\AutorApiTest
+  ✓ it can create autor                                                                                                                                                                                                      3.98s  
+  ✓ it can get autors                                                                                                                                                                                                        0.40s  
+  ✓ it can get autor by id                                                                                                                                                                                                   0.03s  
+  ✓ it can update autor
+  
+   PASS  Tests\Feature\BookApiTest
+  ✓ it can create book                                                                                                                                                                                                       0.05s  
+  ✓ it can get books                                                                                                                                                                                                         0.07s  
+  ✓ it can get book by id                                                                                                                                                                                                    0.03s  
+  ✓ it can update book   
+```
+
+При отсутствии БД: docker exec -it laravel-app php artisan migrate --seed
+
+В pgAdmin для просмотра:
+
+Шаги для добавления сервера PostgreSQL в pgAdmin:
+Нажми на кнопку "Добавить новый сервер" на главной странице pgAdmin.
+
+В открывшемся окне:
+
+Вкладка General:
+В поле Name введи имя для сервера, например: PostgreSQL.
+
+Вкладка Connection:
+- В поле Host name/address ввести db.
+- В поле Port оставь значение по умолчанию 5432.
+- В поле Username введи user.
+- В поле Password введи secret.
+
+Нажми Save, чтобы сохранить настройки. Шаги для проверки таблиц в pgAdmin:
+- В списке слева выбери базу данных, в которой применялись миграции, это laravel_test.
+- Разверни узел базы данных и найди раздел Schemas (схемы).
+- Под схемой выбери public (по умолчанию) и разверни узел Tables (Таблицы).
+- В этом разделе ты должен увидеть таблицы, созданные с помощью миграций, такие как autors, books, и т.д.
+
+Проверка данных:
+- Щелкни правой кнопкой мыши на таблице, которую хочешь просмотреть (например, books).
+- Выбери View/Edit Data > All Rows (Просмотреть/Редактировать данные > Все строки).
+- pgAdmin отобразит все строки, содержащиеся в таблице.
+
+Сам я пользуюсь Navicat Premium 16, здесь pgAdmin для наглядности.

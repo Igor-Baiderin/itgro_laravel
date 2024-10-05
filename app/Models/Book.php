@@ -23,7 +23,8 @@ class Book extends Model
     // Мутатор для записи поля publication_at
     public function setPublicationAtAttribute($value)
     {
-        $this->attributes['publication_at'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+//        $this->attributes['publication_at'] = Carbon::createFromFormat('d-m-Y', $value)->format('Y-m-d');
+        $this->attributes['publication_at'] = Carbon::parse($value)->format('Y-m-d');
     }
 
     // Определение связи с автором

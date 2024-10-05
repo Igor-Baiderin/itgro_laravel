@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\Autor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class AutorApiTest extends TestCase
