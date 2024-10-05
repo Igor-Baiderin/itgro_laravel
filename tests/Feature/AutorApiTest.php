@@ -4,13 +4,14 @@ namespace Tests\Feature;
 
 use App\Models\Autor;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class AutorApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_create_autor()
     {
         $data = [
@@ -25,7 +26,7 @@ class AutorApiTest extends TestCase
             ->assertJsonFragment($data);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_autors()
     {
         Autor::factory()->count(5)->create();
@@ -36,7 +37,7 @@ class AutorApiTest extends TestCase
             ->assertJsonCount(5, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_autor_by_id()
     {
         $autor = Autor::factory()->create();
@@ -47,7 +48,7 @@ class AutorApiTest extends TestCase
             ->assertJsonFragment($autor->toArray());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_autor()
     {
         $autor = Autor::factory()->create();

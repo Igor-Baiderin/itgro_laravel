@@ -5,13 +5,14 @@ namespace Tests\Feature;
 use App\Models\Autor;
 use App\Models\Book;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class BookApiTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     public function it_can_create_book()
     {
         $autor = Autor::factory()->create();
@@ -29,7 +30,7 @@ class BookApiTest extends TestCase
             ->assertJsonFragment($data);
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_books()
     {
         Book::factory()->count(5)->create();
@@ -40,7 +41,7 @@ class BookApiTest extends TestCase
             ->assertJsonCount(5, 'data');
     }
 
-    /** @test */
+    #[Test]
     public function it_can_get_book_by_id()
     {
         $book = Book::factory()->create();
@@ -51,7 +52,7 @@ class BookApiTest extends TestCase
             ->assertJsonFragment($book->toArray());
     }
 
-    /** @test */
+    #[Test]
     public function it_can_update_book()
     {
         $autor = Autor::factory()->create();
