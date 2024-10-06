@@ -37,7 +37,9 @@ services:
             POSTGRES_USER: user
             POSTGRES_PASSWORD: secret
         volumes:
-            - postgres-data:/var/lib/postgresql/data
+            -   type: bind
+                source: ./docker/postgresdata
+                target: /var/lib/postgresql/data
         networks:
             - laravel
         ports:
@@ -65,7 +67,9 @@ services:
             - laravel
         restart: always
         volumes:
-            - pgadmin-data:/var/lib/pgadmin
+            -   type: bind
+                source: ./docker/pgadmin
+                target: /var/lib/pgadmin
 
 #    cron:
 #        build:
@@ -98,7 +102,3 @@ services:
 networks:
     laravel:
         driver: bridge
-
-volumes:
-    postgres-data:
-    pgadmin-data:
