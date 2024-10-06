@@ -64,6 +64,8 @@ services:
         networks:
             - laravel
         restart: always
+        volumes:
+            - pgadmin-data:/var/lib/pgadmin
 
 #    cron:
 #        build:
@@ -99,3 +101,4 @@ networks:
 
 volumes:
     postgres-data:
+    pgadmin-data:
