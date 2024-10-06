@@ -50,7 +50,10 @@
 - написать тесты для API методов
 
 ## Выполнение
-Упакован в контейнер docker-compose, перед запуском создать .env, подключение к БД в .env.example стоит для конфигурации, далее из папки проекта docker compose up.
+- Упакован в контейнер docker-compose, перед запуском создать .env, подключение к БД в .env.example стоит для конфигурации
+- docker compose up
+- docker exec -it laravel-app composer install
+- docker exec -it laravel-app php artisan migrate --seed
 
 Для просмотра http://localhost:25000/ 
 
@@ -174,8 +177,6 @@ BD - laravel_test
   ✓ it can get book by id                                                                                                                                                                                                    0.03s  
   ✓ it can update book   
 ```
-
-При отсутствии БД: docker exec -it laravel-app php artisan migrate --seed
 
 В pgAdmin для просмотра:
 
