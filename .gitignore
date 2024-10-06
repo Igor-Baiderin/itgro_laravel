@@ -3,6 +3,8 @@
 /public/build
 /public/hot
 /public/storage
+/docker/pgadmin
+/docker/postgresdata
 /storage/*.key
 /vendor
 .env
